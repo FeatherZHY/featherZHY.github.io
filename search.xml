@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[JZOJ4787. 数格子]]></title>
-    <url>%2F2019%2F06%2F01%2FJZOJ4787-%E6%95%B0%E6%A0%BC%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[Description你有多少种方法用$2 \times 1$的多米诺骨牌填满$4 \times N$的矩形。答案会很大，所以你只需输出答案模$M$的值。 Input读入包括多组测试数据，以两个0结尾，每个测试点测试组数不超过10组。每组数据包含两个整数，$N$，$M$。 Output每行输出答案模$M$的值。 Sample Input 1 100003 100005 100000 0 Sample Output 11195 Data Constraint对于30%的数据，$1 \leq N \leq 8$。对于80%的数据，$1 \leq N \leq 10 ^ 5$。对于100%的数据，$1 \leq N \leq 10 ^ 9，1 \leq M \leq 10 ^ 5$。 80%解法$4 \times N$，一看就是状压DP，设$f[i][j]$第i列状态为j的方案数，J的每一位上0表示对下一位无影响，1表示有影响，可知$ans = f[n][0]$。可发现$f[i - 1][j]$和$f[i][k]$满足以下条件才可转移： j &amp; k = 0（j 和 k 不能有某一位同时为1）； j 和 k 都为0的位数必须为偶数并且连续。 可发现无论 i 为何值，j 状态是否能转移到 k 状态都是确定的，所以可以dfs做出转移矩阵，然后暴力转移，可拿到80分部分分。 100%解法做出转移矩阵后可发现我们推出来的DP转移式可用矩阵乘法计算，则可以用矩阵快速幂加速。注意几个可能出错的细节：矩阵乘法只满足乘法结合律，不满足乘法交换律，所以快速幂时注意相乘的顺序。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;cstdio&gt;#include&lt;iostream&gt;#define N 16using namespace std;int n, m, g[4];struct arr&#123; long long a[N][N];&#125;ans, f, p;void dfs(int l, int k)&#123; if (k &gt;= N) return; int flag = 0; for (int i = 0; i &lt; 4; i++) &#123; if ((1 &lt;&lt; i &amp; k) &amp;&amp; (1 &lt;&lt; i &amp; l)) &#123; f.a[k][l] = 0; dfs(l, k + 1); return; &#125; if (!(1 &lt;&lt; i &amp; k) &amp;&amp; !(1 &lt;&lt; i &amp; l)) flag++; else if (flag &amp; 1) &#123; f.a[k][l] = 0; dfs(l, k + 1); return; &#125; else flag = 0; &#125; if (!(flag &amp; 1)) f.a[k][l] = 1; dfs(l, k + 1); return;&#125;arr ti(arr x, arr y)&#123; arr z; for (int i = 0; i &lt; N; i++) for (int j = 0; j &lt; N; j++) &#123; z.a[i][j] = 0; for (int k = 0; k &lt; N; k++) z.a[i][j] = (z.a[i][j] + x.a[i][k] * y.a[k][j]) % m; &#125; return z;&#125;arr ksm(arr a, int b)&#123; if (b == 1) return a; arr c = ksm(a, b &gt;&gt; 1); if (b &amp; 1) return ti(ti(c, c), a); else return ti(c, c);&#125;int main()&#123; for (int i = 0; i &lt; N; i++) &#123; for (int j = 0; j &lt; 4; j++) g[j] = 1 &lt;&lt; j &amp; i; dfs(i, 0); ans.a[i / 4][i % 4] = 0; &#125; ans.a[0][0] = 1; while (1) &#123; scanf(&quot;%d%d&quot;, &amp;n, &amp;m); if (n == 0 &amp;&amp; m == 0) return 0; p = ti(ans, ksm(f, n)); printf(&quot;%lld\n&quot;, p.a[0][0]); &#125;&#125;]]></content>
-      <categories>
-        <category>DP</category>
-      </categories>
-      <tags>
-        <tag>JZOJ</tag>
-        <tag>矩阵乘法</tag>
-        <tag>状压DP</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[JZOJ4788. 序列]]></title>
     <url>%2F2019%2F06%2F01%2FJZOJ4788-%E5%BA%8F%E5%88%97%2F</url>
     <content type="text"><![CDATA[Description有一个包含 n 个整数的序列$A: A_1, A_2, \ldots, A_n$，还有一个包含 n 个整数的序列$B: B_1, B_2, \ldots, B_n$在一次操作中，可以选择两个下标 i 和 j ($1 \leq i \leq j \leq n$)，然后把所有$A_i$到$A_n$之间的元素（包含），增加1之后模4。现在求将$A$数组转换成$B$，至少要执行多少次操作。 Input输入数据的第一行包含一个整数T表示数据组数。对于每组数据，第一行有一个整数，分别表示 n 。接下来两行，第一行包含 n 个数字$A_1, A_2, \ldots, A_n$，第二行包含 n 个数字$B_1, B_2, \ldots, B_n$ Output对于每组数据，输出一行表示对应的答案。 Sample Input 152 1 3 0 32 2 0 1 0 Sample Output 1 Data Constraint$1 \leq T \leq 10$$0 \leq A_i，B_i \leq 3$对于10%的数据满足，$n \leq 30$对于30%的数据满足，$n \leq 100$对于50%的数据满足，$n \leq 1000$对于60%的数据满足，$n \leq 10000$对于100%的数据满足，$n \leq 100000$ 100%解法转自扩展の灰，略作修改。我们可以先考虑不存在Mod 4 的情况，假设$d_i=max(0，b_i-a_i)$那么显然，对于一个位置 i ，我们需要将其操作$max(0，di)$次考虑从1开始，我们设$f[i]$表示将1到 i 的 d 清零所需要的最小次数。显然，$f[1]=d[1]$，$f[i]=f[i-1]+max(0，d[i]-d[i-1])$，这是一个差分的经典应用。现在我们来考虑Mod 4的情况，由于有Mod 4 的影响，我们可以将一系列的$d[i]$变为$d[i]+4k$。这样在一种情况下会减小答案。若有$i&lt;j$使得$d[i]-d[i-1]+4&lt;d[j]-d[j-1]$，那么，我们就可以将整个$[i,j-1]$的d都加上4这样答案就可以减少$(d[i]-d[i-1]+4-d[j]+d[j-1])$实际上，我们只需要维护$d[i]-d[i-1]$ = -2和-3的个数即可。（-1+4=3，0+4=4显然都不可能）每次都贪心地去取就可以。记得如果贪心到$d[i]-d[i-1]=-3$而且$d[j]-d[j-1]=2$时要把$d[i]-d[i-1] = -2$的个数加一，因为后面如果有k满足$d[k]-d[k-1]$=2或3的话把 j 用 k 替换掉是可以更优的。 Code123456789101112131415161718192021222324252627282930#include&lt;iostream&gt;#include&lt;cstdio&gt;#include&lt;algorithm&gt;#include&lt;cstring&gt;using namespace std;int t, n, a[100010], num[4], ans = 0, b;int main()&#123; scanf(&quot;%d&quot;, &amp;t); while (t) &#123; ans = 0; memset(num, 0, sizeof num); scanf(&quot;%d&quot;, &amp;n); for (int i = 1; i &lt;= n; i++) scanf(&quot;%d&quot;, &amp;a[i]); for (int i = 1; i &lt;= n; i++) scanf(&quot;%d&quot;, &amp;b), a[i] = (b - a[i] + 4) % 4; for (int i = n; i &gt;= 1; i--) a[i] -= a[i - 1]; for (int i = 1; i &lt;= n; i++) &#123; ans += max(a[i], 0); if (a[i] &lt; 0) num[a[i] + 4]++; if (num[1] &amp;&amp; a[i] &gt; 1) num[1]--, num[a[i]]++, ans -= a[i] - 1; else if (num[2] &amp;&amp; a[i] &gt; 2) num[2]--, ans -= a[i] - 2; &#125; printf(&quot;%d\n&quot;, ans); t--; &#125; return 0;&#125;]]></content>
@@ -24,6 +11,19 @@
         <tag>JZOJ</tag>
         <tag>差分</tag>
         <tag>贪心</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JZOJ4787. 数格子]]></title>
+    <url>%2F2019%2F06%2F01%2FJZOJ4787-%E6%95%B0%E6%A0%BC%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[Description你有多少种方法用$2 \times 1$的多米诺骨牌填满$4 \times N$的矩形。答案会很大，所以你只需输出答案模$M$的值。 Input读入包括多组测试数据，以两个0结尾，每个测试点测试组数不超过10组。每组数据包含两个整数，$N$，$M$。 Output每行输出答案模$M$的值。 Sample Input 1 100003 100005 100000 0 Sample Output 11195 Data Constraint对于30%的数据，$1 \leq N \leq 8$。对于80%的数据，$1 \leq N \leq 10 ^ 5$。对于100%的数据，$1 \leq N \leq 10 ^ 9，1 \leq M \leq 10 ^ 5$。 80%解法$4 \times N$，一看就是状压DP，设$f[i][j]$第i列状态为j的方案数，J的每一位上0表示对下一位无影响，1表示有影响，可知$ans = f[n][0]$。可发现$f[i - 1][j]$和$f[i][k]$满足以下条件才可转移： j &amp; k = 0（j 和 k 不能有某一位同时为1）； j 和 k 都为0的位数必须为偶数并且连续。 可发现无论 i 为何值，j 状态是否能转移到 k 状态都是确定的，所以可以dfs做出转移矩阵，然后暴力转移，可拿到80分部分分。 100%解法做出转移矩阵后可发现我们推出来的DP转移式可用矩阵乘法计算，则可以用矩阵快速幂加速。注意几个可能出错的细节：矩阵乘法只满足乘法结合律，不满足乘法交换律，所以快速幂时注意相乘的顺序。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include&lt;cstdio&gt;#include&lt;iostream&gt;#define N 16using namespace std;int n, m, g[4];struct arr&#123; long long a[N][N];&#125;ans, f, p;void dfs(int l, int k)&#123; if (k &gt;= N) return; int flag = 0; for (int i = 0; i &lt; 4; i++) &#123; if ((1 &lt;&lt; i &amp; k) &amp;&amp; (1 &lt;&lt; i &amp; l)) &#123; f.a[k][l] = 0; dfs(l, k + 1); return; &#125; if (!(1 &lt;&lt; i &amp; k) &amp;&amp; !(1 &lt;&lt; i &amp; l)) flag++; else if (flag &amp; 1) &#123; f.a[k][l] = 0; dfs(l, k + 1); return; &#125; else flag = 0; &#125; if (!(flag &amp; 1)) f.a[k][l] = 1; dfs(l, k + 1); return;&#125;arr ti(arr x, arr y)&#123; arr z; for (int i = 0; i &lt; N; i++) for (int j = 0; j &lt; N; j++) &#123; z.a[i][j] = 0; for (int k = 0; k &lt; N; k++) z.a[i][j] = (z.a[i][j] + x.a[i][k] * y.a[k][j]) % m; &#125; return z;&#125;arr ksm(arr a, int b)&#123; if (b == 1) return a; arr c = ksm(a, b &gt;&gt; 1); if (b &amp; 1) return ti(ti(c, c), a); else return ti(c, c);&#125;int main()&#123; for (int i = 0; i &lt; N; i++) &#123; for (int j = 0; j &lt; 4; j++) g[j] = 1 &lt;&lt; j &amp; i; dfs(i, 0); ans.a[i / 4][i % 4] = 0; &#125; ans.a[0][0] = 1; while (1) &#123; scanf(&quot;%d%d&quot;, &amp;n, &amp;m); if (n == 0 &amp;&amp; m == 0) return 0; p = ti(ans, ksm(f, n)); printf(&quot;%lld\n&quot;, p.a[0][0]); &#125;&#125;]]></content>
+      <categories>
+        <category>DP</category>
+      </categories>
+      <tags>
+        <tag>JZOJ</tag>
+        <tag>矩阵乘法</tag>
+        <tag>状压DP</tag>
       </tags>
   </entry>
   <entry>
@@ -42,8 +42,20 @@
         <category>数论</category>
       </categories>
       <tags>
-        <tag>排列组合</tag>
         <tag>JZOJ</tag>
+        <tag>排列组合</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[2018NOIP普及组总结]]></title>
+    <url>%2F2018%2F11%2F26%2F2018NOIP%E6%99%AE%E5%8F%8A%E7%BB%84%E6%80%BB%E7%BB%93%2F</url>
+    <content type="text"><![CDATA[初赛第二次去一中，来的时候坐在车上闭目养神还是挺有用的，至少比赛的时候没有困。到考场以后先熟悉了一下厕所在哪里等等。回来的时候先估了一下分发现发挥正常然后很满足地听起歌，半路中突然发现自己一道选择题排除ABC选B，仍然挺开心的。但是也有很多不足的地方，最后剩的时间大概只有十五分钟。看程序写结果反复看了很多遍（今年这道大题是真的水）。以及最后一道大题的第二题双向链表一脸懵逼，根据多年水题技巧硬生生模拟出来，最后只错了一个空。总结：心态一定一定要稳住！！！不能慌！！！要是因为最后时间很少无法冷静的话是真的凉。 复赛早上磨蹭磨蹭收拾一下东西，再腐败了一会儿就准备上车了，然而这一次在车上大脑兴奋的我又拿起了手机，接着到广州和大家一起吃午饭。这个！！！我要吐槽了！！！好好的一盆粉丝炖肉变成了粉丝炖汤，米饭 = 稀饭，还有lzc点的西红柿鸡蛋馅的饺子？？？西红柿鸡蛋馅？？？以及一盘15块钱的黄瓜连半根都不到，米饭上的时候才都快吃完了。一点都对不起这顿饭的价格_吃完并不愉快的午餐过后到二中的休息室趴了一小会儿，进机房准备比赛。一看旁边坐的就是纪雅的学妹，熟人相见格外亲切呀。比赛的密码扯到了神奇的改革开放。于是开始了炸车之旅。因为是第一次参加NOIP复赛，先很听话地用5分钟把注意事项完整地看了一遍，填好了选手信息。 T1考输入输出 T2考语文水平 T3 + T4一看T3：哦这道题肯定是动规啊，拿起笔唰唰唰列转移方程。然后手算了第二个样例，觉得好像没什么毛病。然后我就开打了。氮素，行云流水地敲出来以后发现——第一个样例错了！我对自己的思路的正确性深信不疑，仗着前两题节省的大量时间，开始与DP的死磕。磕了一个半小时，觉得还是先看看T4。用半个小时打出了第四题的暴力，果不其然因为思路有点乱打错了一点。我想了想，还是觉得马上就能调好T3了，而且T4说不定暴力还拿不到70几（这是我做的最错误的决定）于是又折回去调T3。然而时间不知不觉到了最后十五分钟，我突然发现T3会重复计算，思路是错的，心态炸裂——差点就自暴自弃不想提交前两题了。最后十分钟，终于冷静下来，T4飞速水分，再直接把T3的代码交上去，检查了一遍文件夹。出考场的时候心情真的十分低落。当时真的觉得自己连普及组也拿不到一等奖了。晚上也只是随便吃了点粉。后面紧接着的一周都挺颓废的，也没有去OJ上估分，觉得自己可能拿到提高组一等奖就要退役了。然后某天中午老师突然告诉我说我的官方成绩是247，保证一等奖。但是我当时好像也不是很激动。哦对了，林卓铖因为有西红柿鸡蛋饺子的BUFF拿了315，T4竟然打暴力就能AC！！！！！！！！！！与一百分失之交臂啊。但实际上正解的中序遍历+马拉车我也不会打。 总结：优点：1.把DP的转移方程列了出来，想清楚了思路才开始打；2.先把其他的题看了一下；3.仔细看了注意事项和时限空限文件名，没有犯低级错误。 需要改进的：1.考场上要先想清楚思路和对题目的理解是否正确，手算一下小样例；2.先把能拿到的暴力分拿到再尝试去打正解，不要得不偿失；3.一定要保持理智，不要自暴自弃;]]></content>
+      <categories>
+        <category>总结</category>
+      </categories>
+      <tags>
+        <tag>NOIP</tag>
+        <tag>总结</tag>
       </tags>
   </entry>
 </search>
