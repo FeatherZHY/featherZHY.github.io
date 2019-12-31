@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2F2019%2F07%2F06%2FJZOJ3316-%E9%9D%9E%E5%9B%9E%E6%96%87%E6%95%B0%E5%AD%97%2F</url>
-    <content type="text"><![CDATA[title: JZOJ3316.非回文数字date: 2019-07-06 23:18:43tags:[JZOJ,数位DP]categories: DP—-]]></content>
+    <title><![CDATA[Welcome to 2020]]></title>
+    <url>%2F2019%2F12%2F31%2FWelcome-to-2020%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F07%2F07%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to my garden.]]></content>
+      <categories>
+        <category>杂记</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[JZOJ4787. 数格子]]></title>
@@ -30,14 +38,6 @@
         <tag>差分</tag>
         <tag>贪心</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2019%2F06%2F01%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to my garden.]]></content>
-      <categories>
-        <category>杂记</category>
-      </categories>
   </entry>
   <entry>
     <title><![CDATA[球盒问题]]></title>
