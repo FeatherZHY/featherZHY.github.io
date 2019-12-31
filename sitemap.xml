@@ -4,7 +4,14 @@
   <url>
     <loc>http://yoursite.com/2019/12/31/Welcome-to-2020/</loc>
     
-    <lastmod>2019-12-31T11:04:20.258Z</lastmod>
+    <lastmod>2019-12-31T15:36:58.759Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2019-12-31T15:29:28.954Z</lastmod>
     
   </url>
   
@@ -54,13 +61,6 @@
     <loc>http://yoursite.com/2019/07/07/hello-world/</loc>
     
     <lastmod>2019-05-31T23:50:30.450Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2019-05-27T14:07:11.766Z</lastmod>
     
   </url>
   
