@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /e/featherZHY.github.io log --oneline)",
+      "Bash(git -C /e/featherZHY.github.io log:*)",
+      "Bash(cat:*)",
+      "Bash(git checkout:*)",
+      "Bash(hexo init:*)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(git clone:*)",
+      "Bash(npm install:*)",
+      "Bash(npx hexo:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
