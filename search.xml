@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World!</title>
+    <url>/2026/02/20/hello-world/</url>
+    <content><![CDATA[<p>世界是片永恒的森林，中心有座形似白塔的图书馆。世人不知其名，只在天气晴朗时见过它海市蜃楼般的倒影，以传说之白塔相称。</p>
+<p>塔外之客偶尔会来借阅书籍，它们的阅读方式千奇百怪，各不相同。有人用眼看，有人用耳听，有人用大脑思考，有人把书拆开捶打纸页，有人用心提炼，有人饮用焚烧的灰烬，有人并不读，只是将其带回家，收进书架。</p>
+<p>你想借一本书吗？</p>
+<p>欢迎来到白塔。</p>
+<span id="more"></span>
+]]></content>
+  </entry>
+  <entry>
+    <title>博客重建完成</title>
+    <url>/2026/02/20/%E5%8D%9A%E5%AE%A2%E9%87%8D%E5%BB%BA%E5%AE%8C%E6%88%90/</url>
+    <content><![CDATA[<p>由于7年前的源文件丢失，重新搭建了Hexo博客，使用NexT Mist主题。</p>
+<span id="more"></span>
+
+<h2 id="搭建教程"><a href="#搭建教程" class="headerlink" title="搭建教程"></a>搭建教程</h2><ul>
+<li><p><a href="https://docs.github.com/zh/pages">GitHub Pages 文档</a></p>
+</li>
+<li><p><a href="https://hexo.io/zh-cn/">Hexo</a></p>
+</li>
+<li><p><a href="https://theme-next.org/">NexT Mist</a></p>
+</li>
+</ul>
+<h2 id="历史文章"><a href="#历史文章" class="headerlink" title="历史文章"></a>历史文章</h2><p>少量OI算法+数据结构模板+游记，详见<a href="https://www.luogu.com.cn/user/76866/article">featherZHY - 个人中心 - 洛谷</a></p>
+<h2 id="维护计划"><a href="#维护计划" class="headerlink" title="维护计划"></a>维护计划</h2><ul>
+<li><input checked="" disabled="" type="checkbox"> 重建博客</li>
+<li><input disabled="" type="checkbox"> 迁移随笔</li>
+<li><input disabled="" type="checkbox"> 更新技术笔记</li>
+</ul>
+]]></content>
+      <categories>
+        <category>博客维护</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>GitHub</tag>
+      </tags>
+  </entry>
+</search>
